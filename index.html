@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Pricing</title>
+    <style>
+        /* General Reset and Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Top Dark Background Section */
+        .header-section {
+            background-color: #272c4a;
+            color: white;
+            text-align: center;
+            padding: 60px 20px 150px 20px; /* Large bottom padding for card overlap */
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .header-section p {
+            font-size: 0.9rem;
+            color: #aeb4d1;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: -90px auto 50px auto; /* Negative margin pulls cards over the dark header */
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Individual Card Styling */
+        .card {
+            background: white;
+            width: 300px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent; /* Hidden border for selection state */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hover Effect (Zoom) */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Active/Selected State */
+        .card.selected {
+            border: 2px solid #0099ff;
+            transform: scale(1.05);
+        }
+
+        .card-header {
+            background-color: #4b4f63;
+            color: white;
+            padding: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            right: 15px;
+            font-size: 0.7rem;
+            font-weight: normal;
+        }
+
+        .card-price {
+            padding: 30px 0 15px;
+            font-size: 3rem;
+            color: #333;
+        }
+
+        .card-price .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+            margin-right: 2px;
+        }
+
+        .card-price .duration {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Separator line */
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 30px 0;
+            flex-grow: 1;
+        }
+
+        .card-features li {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .card-features li strong {
+            color: #333;
+        }
+
+        /* Buy Button */
+        .buy-btn-container {
+            padding-bottom: 30px;
+        }
+
+        .buy-btn {
+            background-color: #0099ff;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .buy-btn:hover {
+            background-color: #007acc;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .faq-section h2 {
+            font-weight: 400;
+            color: #777;
+            margin-bottom: 40px;
+            font-size: 1.5rem;
+        }
+
+        .faq-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+            flex-wrap: wrap;
+        }
+
+        .faq-item {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .faq-item h3 {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .faq-item p {
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <h1>Simple Pricing!</h1>
+        <p>The most advanced customer support tools with a simple and affordable pricing. And you can always try for 30 days, free!</p>
+    </div>
+
+    <div class="cards-container">
+        <div class="card" onclick="selectCard(this)">
+            <div class="card-header">BASIC</div>
+            <div class="card-price"><span class="currency">$</span>4<span class="duration">/ month</span></div>
+            <div class="divider"></div>
+            <ul class="card-features">
+                <li><strong>10</strong> Projects</li>
+                <li><strong>10</strong> Pages</li>
+                <li><strong>100</strong> Mb Disk Space</li>
+            </ul>
+            <div class="buy-btn-container">
+                <button class="buy-btn" onclick="triggerPurchase(event)">BUY NOW</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="selectCard(this)">
+            <div class="card-header">
+                STANDARD 
+                <span class="badge">Save 15%</span>
+            </div>
+            <div class="card-price"><span class="currency">$</span>8<span class="duration">/ month</span></div>
+            <div class="divider"></div>
+            <ul class="card-features">
+                <li><strong>20</strong> Projects</li>
+                <li><strong>20</strong> Pages</li>
+                <li><strong>200</strong> Mb Disk Space</li>
+            </ul>
+            <div class="buy-btn-container">
+                <button class="buy-btn" onclick="triggerPurchase(event)">BUY NOW</button>
+            </div>
+        </div>
+
+        <div class="card" onclick="selectCard(this)">
+            <div class="card-header">ADVANCED</div>
+            <div class="card-price"><span class="currency">$</span>12<span class="duration">/ month</span></div>
+            <div class="divider"></div>
+            <ul class="card-features">
+                <li><strong>40</strong> Projects</li>
+                <li><strong>40</strong> Pages</li>
+                <li><strong>500</strong> Mb Disk Space</li>
+            </ul>
+            <div class="buy-btn-container">
+                <button class="buy-btn" onclick="triggerPurchase(event)">BUY NOW</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>How does free trial work?</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a diam nec augue tincidunt accumsan. In dignissim laoreet ipsum eu interdum.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I cancel any time?</h3>
+                <p>Aliquam erat volutpat. Etiam luctus massa ex, at tempus tellus blandit quis. Sed quis neque tellus. Donec maximus ipsum in malesuada hendrerit.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle highlighting the selected card
+        function selectCard(clickedCard) {
+            // Remove 'selected' class from all cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => card.classList.remove('selected'));
+            
+            // Add 'selected' class to the card that was clicked
+            clickedCard.classList.add('selected');
+        }
+
+        // Function to trigger the Success Alert
+        function triggerPurchase(event) {
+            // Prevent the click event from bubbling up to the card (which would trigger selectCard)
+            event.stopPropagation();
+            alert("Success! The item has been processed.");
+        }
+    </script>
+
+</body>
+</html>
